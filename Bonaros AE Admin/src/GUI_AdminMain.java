@@ -1,9 +1,15 @@
 
-import form.SettingsButtonPanel;
+import form.BoxPanel;
+import form.GenSettingsButtonPanel;
 import form.UserButtonPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,15 +17,47 @@ import menu.MenuItem;
 
 
 public class GUI_AdminMain extends javax.swing.JFrame {
-
+	private String uname = "root";
+	private String pass = "Jo6c!pi7papaxen";
+	private String query = "select* from generalsettings";
+	private String url = "jdbc:mysql://localhost:3306/users";
+	private String s = "";
     /**
      * Creates new form Main
      */
     public GUI_AdminMain() {
+    	try {
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+    	}
+    	catch(ClassNotFoundException e) {
+    		e.printStackTrace();    		
+    	}
+    	
+    	try {
+    		Connection con =  DriverManager.getConnection(url,uname,pass);
+    		Statement statement = con.createStatement();
+    		ResultSet result = statement.executeQuery(query);
+    		
+    		while(result.next()) {
+    			
+    			for(int i=1;i<4;i++) {
+    				s+= result.getString(i).toString() + ":";
+    			}
+    		}
+    		String strings[] = s.split(":",5);
     	
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setTitle(strings[0]);
         execute();
+    	}
+        
+        catch(SQLException e) {
+    		e.printStackTrace();
+    		}
+    	
+    
+        
     }
 
     private void execute() {
@@ -38,20 +76,20 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
         
         //  create submenu staff
-        MenuItem menuStaff1 = new MenuItem(iconSubMenu, "General", new ActionListener() {
+        MenuItem menuStaff1 = new MenuItem(iconSubMenu, "цемийа", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
             	panelBody.removeAll();
-                panelBody.add(new SettingsButtonPanel());
+                panelBody.add(new GenSettingsButtonPanel());
                 panelBody.repaint();
                 panelBody.revalidate();
             }
         });
-        MenuItem menuStaff2 = new MenuItem(iconSubMenu, "Users", new ActionListener() {
+        MenuItem menuStaff2 = new MenuItem(iconSubMenu, "вягстес", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				panelBody.removeAll();
+				panelBody.removeAll();				
 				panelBody.add(new UserButtonPanel());
 				panelBody.repaint();
 				panelBody.revalidate();
@@ -62,12 +100,12 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
         //  create submenu setting message
 
-        MenuItem message1 = new MenuItem(exportIcon, "Export", null);
-        MenuItem message2 = new MenuItem(processIcon, "In process", null);
+        MenuItem message1 = new MenuItem(exportIcon, "енацыцг", null);
+        MenuItem message2 = new MenuItem(processIcon, "се епенеяцасиа", null);
         
 
         //  create submenu setting 
-        MenuItem piece = new MenuItem(iconPiece, "Piece", new ActionListener() {
+        MenuItem piece = new MenuItem(iconPiece, "телавио", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -76,21 +114,21 @@ public class GUI_AdminMain extends javax.swing.JFrame {
 			}
         	
         });
-        MenuItem box = new MenuItem(iconBox, "Box", new ActionListener() {
+        MenuItem box = new MenuItem(iconBox, "йоути", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new BoxPanel();
 				
 			}
         	
         });
-        MenuItem pallete = new MenuItem(iconPallete, "Pallete", null);
-        MenuItem browse = new MenuItem(productIcon,"Browse products",null);
-        MenuItem menuStaff = new MenuItem(iconSetting, "Settings", null, menuStaff1, menuStaff2);
-        MenuItem menuSetting = new MenuItem(labelsIcon, "Labels", null, piece, box, pallete);
-        MenuItem menuDatabase = new MenuItem(iconDatabase, "Data", null,message1,message2);
-        MenuItem menuProducts = new MenuItem(browseIcon,"Products",null,browse);
+        MenuItem pallete = new MenuItem(iconPallete, "пакета", null);
+        MenuItem browse = new MenuItem(productIcon,"пеяигцгсг пяозомтым",null);
+        MenuItem menuStaff = new MenuItem(iconSetting, "яухлисеис", null, menuStaff1, menuStaff2);
+        MenuItem menuSetting = new MenuItem(labelsIcon, "етийетес", null, piece, box, pallete);
+        MenuItem menuDatabase = new MenuItem(iconDatabase, "дедолема", null,message1,message2);
+        MenuItem menuProducts = new MenuItem(browseIcon,"пяозомта",null,browse);
         addMenu(menuStaff, menuSetting, menuDatabase,menuProducts);
     }
 
@@ -166,7 +204,6 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         getContentPane().add(panelBody, java.awt.BorderLayout.CENTER);
         
        
-
         setSize(new java.awt.Dimension(871, 473));
         setLocationRelativeTo(null);
     	

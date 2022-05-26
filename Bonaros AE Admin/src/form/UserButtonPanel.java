@@ -1,11 +1,80 @@
 package form;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+
+import com.github.lgooddatepicker.tableeditors.DateTableEditor;
+import com.github.lgooddatepicker.tableeditors.DateTimeTableEditor;
+import com.toedter.calendar.JDateChooser;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.sql.Connection;
+import java.util.Date;
+import java.util.Locale;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Vector;
+
 public class UserButtonPanel extends javax.swing.JPanel {
+	private String uname = "root";
+	private String pass = "Jo6c!pi7papaxen";
+	private String query = "select* from users";
+	private String url = "jdbc:mysql://localhost:3306/users";
+	private String data = "";
+	private Object[][] myObj;
+	private ArrayList<String> dataList = new ArrayList<>();
+	private ArrayList<JDateChooser> tableData = new ArrayList<>();
+	private JButton yesButton = new JButton("ΝΑΙ");
+	private JButton noButton = new JButton("ΟΧΙ");
+	private int id = 0;
+	private boolean valid = false;
+	private Integer count = 0;
+	private JTable table;
+	private JDateChooser chooser = new JDateChooser();
 	
+	private boolean noRow = false;
+	private int indexes[];
 	
+	 public void removeSelectedFromTable(JTable table) {
+
+	        DefaultTableModel model = (DefaultTableModel) table.getModel();
+	        int indexes[] = table.getSelectedRows(); 
+	        int res = 0;
+	        for(int i = 0; i < indexes.length; i++) {
+	            res += (i>0)?(indexes[i]-indexes[i-1]-1):0;
+	            int index = table.convertRowIndexToModel(indexes[0]+res);
+	            model.removeRow(index);
+	        }
+	    }
+	 
+	 
 
     /**
      * Creates new form Panel1
@@ -22,78 +91,323 @@ public class UserButtonPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+    	   	
+    	try {
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+    	}
+    	catch(ClassNotFoundException e) {
+    		e.printStackTrace();    		
+    	}
     	
-    	//ImageIcon saveIcon = new ImageIcon(getClass().getResource("C:\\Users\\dai18\\eclipse-workspace\\Bonaros AE Admin\\Form Icons\\save.png"));
-    	//ImageIcon exitIcon = new ImageIcon(getClass().getResource("C:\\Users\\dai18\\eclipse-workspace\\Bonaros AE Admin\\Form Icons\\exit.png"));
-        jLabel1 = new javax.swing.JLabel();
-        //MenuItem saveButton = new MenuItem(saveIcon,"Save",null);
-        //MenuItem exitButton = new MenuItem(exitIcon,"Exit",null);
-        
-        exitButton = new javax.swing.JButton();
-        exitButton.setText("EXIT");
-        saveButton = new javax.swing.JButton();
-        saveButton.setText("SAVE");
-        jTextField1 = new javax.swing.JTextField();
+    	try {
+    		Connection con =  DriverManager.getConnection(url,uname,pass);
+    		Statement statement = con.createStatement();
+    		ResultSet result = statement.executeQuery(query);
+    		ResultSetMetaData rsmt = result.getMetaData();
+    		
+    		int c = rsmt.getColumnCount();
+    		Vector column = new Vector(c);
+    		for(int i=1;i<=c;i++) {
+    			column.add(rsmt.getColumnName(i));
+    		}
+    		Vector data = new Vector();
+    		Vector row = new Vector();
+    		
+    		while(result.next()) {
+    			row = new Vector(c);
+    			for(int i=1;i<=c;i++) {
+    				row.add(result.getString(i));
+    				
+    			}
+    			data.add(row);
+    		}
+    		
+    		DefaultTableModel model = new DefaultTableModel(data, column);
+    		
+    	    table = new javax.swing.JTable(model);
+        	table.setDefaultEditor(LocalDate.class, new DateTableEditor());
+        	table.setDefaultRenderer(LocalDate.class, new DateTableEditor());
+        	TableColumn col = table.getColumnModel().getColumn(3);
+        	col.setCellEditor(table.getDefaultEditor(LocalDate.class));
+        	col.setCellRenderer(table.getDefaultRenderer(LocalDate.class));
+        	
+        	
+        	//JScrollPane Settings
+        	
+        	pane = new javax.swing.JScrollPane(table);
+        	//Horizontal Policy
+        	int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED;
+        	//Vertical Policy
+        	int vericalPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED;
+        	pane.setHorizontalScrollBarPolicy(horizontalPolicy);
+        	pane.setVerticalScrollBarPolicy(vericalPolicy);
+        	pane.setPreferredSize(new Dimension(200,200));
+        	
+        	
+        	pane.setPreferredSize(new Dimension(150,10));
+        	
+            jLabel1 = new javax.swing.JLabel();
+            
+            save = new javax.swing.JButton();
+            save.setText("ΑΠΟΘΗΚΕΥΣΗ");
+            deleteButton = new javax.swing.JButton();
+            deleteButton.setText("ΔΙΑΓΡΑΦΗ");
+            insert = new javax.swing.JButton();
+            insert.setText("ΕΙΣΑΓΩΓΗ");
+                   
+            jTextField1 = new javax.swing.JTextField();
 
-        jLabel1.setBackground(new java.awt.Color(155, 156, 237));
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("    General Settings");
-        jLabel1.setOpaque(true);
+            jLabel1.setBackground(new java.awt.Color(155, 156, 237));
+            jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+            jLabel1.setText("    Χρήστες");
+            jLabel1.setOpaque(true);
+            
+            Box buttonBox = Box.createHorizontalBox();
+            buttonBox.add(Box.createRigidArea(new Dimension(20,20)));
+            buttonBox.add(save);
+            buttonBox.add(Box.createRigidArea(new Dimension(20,20)));
+            buttonBox.add(insert);
+            buttonBox.add(Box.createRigidArea(new Dimension(20,20)));
+            buttonBox.add(deleteButton);
+            
+           chooser.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
+           chooser.setPreferredSize(new Dimension(100,20));
+            
+            Box dateBox = Box.createVerticalBox();
+            dateBox.setPreferredSize(new Dimension(100,20));
+            dateBox.add(Box.createRigidArea(new Dimension(20,20)));
+            dateBox.add(chooser);
+            
+            
+            
+            jTextField1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jTextField1ActionPerformed(evt);
+                }
+            });
+            
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+                        
+            this.setLayout(layout);
+           
+            
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)                
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING))
+                              
+                .addComponent(buttonBox)
+                .addComponent(pane,10,600,700));
+                                
+            layout.setVerticalGroup(
+                layout.createSequentialGroup()  
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    //.addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE))
+                    .addComponent(buttonBox)
+                    .addGap(30,30,30)
+                    .addComponent(pane,10,200,250));                 
+                    
+                    
+            		
+            
+            	save.addActionListener(new ActionListener() {
+    			
+    			@Override
+    			public void actionPerformed(ActionEvent e) {
+						
+						  String deleteQuery = "delete from users";
+						  try {
+						  statement.executeUpdate(deleteQuery);
+						  } catch (SQLException e1) {
+							  e1.printStackTrace();
+						  }
+						  
+							 
+						 
+						 
+    				for(int i=0;i<table.getRowCount();i++) {
+    					
+    				String id = table.getValueAt(i,0).toString();
+    				System.out.println(id);
+    				String name = table.getValueAt(i, 1).toString();
+    				System.out.println(name);
+    				String pass =  table.getValueAt(i,2).toString();
+    				System.out.println(pass);
+    				String date = table.getValueAt(i,3).toString();
+    				System.out.println(date);
+    				try {
+								
+    					int j = Integer.parseInt(id);
+						String query1 = "insert into users(idUsers,UserName,Password,LastModified) values("+j+",'"+name+"','"+pass+"','"+date+"')";
+						statement.executeUpdate(query1);
+						
+					} catch (SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+    				
+    				
+    				
+    				
+    				}
+    				
+    				new SuccessSaveGUI();
+    				
+    			}
+    		});
+            	deleteButton.addActionListener(new ActionListener() {
 
-        
+    				@Override
+    				public void actionPerformed(ActionEvent e) {
+    				
+    					if(table.getSelectedRows().length==0) {
+    						NoRowSelectedMessageGUI gui = new NoRowSelectedMessageGUI();   						
+    						
+    					}
+    					
+    					else {
+    						
+    						JFrame powerFrame=  new JFrame("Διαγραφή Χρήστη");
+    						JPanel panel = new JPanel();
+    						JLabel message = new JLabel("Είστε βέβαιος για τη διαγραφή του χρήστη; ");
+    						
+    						JButton yesButton = new JButton("ΝΑΙ");
+    						JButton noButton = new JButton("OXI");
+    						yesButton.setPreferredSize(new Dimension(100,10));
+    						yesButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
+    						noButton.setPreferredSize(new Dimension(100,10));
+    						noButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
+    						//Στοίχηση κουμπιών
+    						yesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    						noButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    						
+    						
+    						//Στοίχηση ετικέτας
+    						message.setAlignmentX(Component.CENTER_ALIGNMENT);
+    						
+    						Box box = Box.createHorizontalBox();
+    						box.add(yesButton);
+    						box.add(Box.createRigidArea(new Dimension(20,20)));
+    						box.add(noButton);
+    						
+    						
+    						Box labelbox = Box.createVerticalBox();
+    						
+    						
+    						labelbox.add(Box.createRigidArea(new Dimension(200,20)));
+    						labelbox.add(message);
+    						
+    						yesButton.addActionListener(new ActionListener() {
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        
-       
-        
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(saveButton)
-                .addGap(15, 15, 15)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(229, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 257, Short.MAX_VALUE))
-        );
-        
-        	exitButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
+    							@Override
+    							public void actionPerformed(ActionEvent e) {
+    								
+    								
+    								removeSelectedFromTable(table);
+    								powerFrame.dispose();
+    								
+    							}
+    							
+    							
+    						});
+    						
+    						
+    						noButton.addActionListener(new ActionListener() {
+
+    							@Override
+    							public void actionPerformed(ActionEvent e) {
+    								powerFrame.dispose();
+    								
+    							}
+    							
+    						});
+    						
+    						
+    						panel.add(labelbox);
+    						panel.add(box);
+    						panel.setPreferredSize(new Dimension(400,100));
+    						
+    						
+    						powerFrame.add(panel);
+    						
+    						powerFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    				        powerFrame.pack();
+    				        powerFrame.setLocationRelativeTo(null);
+    				        powerFrame.setVisible(true);
+    				        powerFrame.setResizable(false);
+    					}
+    				 }
+    				});
+            	
+            	
+            	insert.addActionListener(new ActionListener() {
+            		
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if(data.isEmpty()) {
+							
+							model.addRow(new Object[] {1,"","",""});
+							//data.add(new Object[] {1,"","",""});
+						}
+						else {
+							String last = data.lastElement().toString();
+				    		String[] lastId = last.split(",");
+				    	    String userLast = lastId[0].substring(1);
+				    		//ArrayList<String> array = new ArrayList<>();
+				    		id = Integer.parseInt(userLast);
+							model.addRow(new Object[] {id+1,"","",""});
+							id+=1;
+						}
+					}
+					
+					});
+            	}
+					
+            		
+            
+    			
+    	
+    	catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+	
         
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton saveButton;
+   
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton exitButton;
+    private javax.swing.JButton save;
+    private javax.swing.JTable users;
+    private javax.swing.JButton insert;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JScrollPane pane;
     // End of variables declaration//GEN-END:variables
+
+	public boolean isYes() {
+		return valid;
+	}
+
+
+
+	public void setYes(boolean yes) {
+		this.valid = yes;
+	}
+
+
+
+	public JTable getTable() {
+		return table;
+	}
 }
+
+

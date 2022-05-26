@@ -42,6 +42,7 @@ public class BoxPanel extends JPanel {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		Box box = Box.createHorizontalBox();
 		JLabel name = new JLabel("Box");
 		JLabel labelName = new JLabel("Label name");		
