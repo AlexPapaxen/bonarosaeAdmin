@@ -2,12 +2,14 @@ package form;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,12 +21,12 @@ public class NoRowSelectedMessageGUI {
 	private JPanel panel = new JPanel();
 	private JButton okButton = new JButton("ΕΝΤΑΞΕΙ");
 	private boolean yes = false;
-	
+
 	private JLabel message = new JLabel("Δεν έχετε επιλέξει καμία εγγραφή ");
 	
 
 	public NoRowSelectedMessageGUI() {
-		
+		 JDialog dialog = new JDialog(powerFrame,"Δεν έχετε επιλέξει χρήστη",ModalityType.APPLICATION_MODAL);
 		okButton.setPreferredSize(new Dimension(10,30));
 		okButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
 		
@@ -32,7 +34,7 @@ public class NoRowSelectedMessageGUI {
 		okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
-		
+	
 		//Στοίχηση ετικέτας
 		message.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -63,13 +65,15 @@ public class NoRowSelectedMessageGUI {
 		panel.setPreferredSize(new Dimension(400,100));
 		
 		//ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("bonaros.jpg"));
-		powerFrame.add(panel);
+		dialog.add(panel);
+		powerFrame.pack();
 		//powerFrame.setIconImage(logo.getImage());
-		powerFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        powerFrame.pack();
-        powerFrame.setLocationRelativeTo(null);
-        powerFrame.setVisible(true);
-        powerFrame.setResizable(false);
+		dialog.pack();
+        dialog.setSize(400,130);
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.setResizable(true);
+        dialog.setVisible(true);
         
 
 		

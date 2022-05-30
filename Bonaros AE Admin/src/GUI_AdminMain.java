@@ -1,6 +1,8 @@
 
+import form.PiecePanel;
 import form.BoxPanel;
 import form.GenSettingsButtonPanel;
+import form.PalletePanel;
 import form.UserButtonPanel;
 
 import java.awt.event.ActionEvent;
@@ -105,25 +107,46 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
 
         //  create submenu setting 
-        MenuItem piece = new MenuItem(iconPiece, "телавио", new ActionListener() {
+        MenuItem piece = new MenuItem(iconPiece, "телавиа", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				panelBody.removeAll();
+				panelBody.add(new PiecePanel());
+				panelBody.repaint();
+	            panelBody.revalidate();
 				
 			}
         	
         });
-        MenuItem box = new MenuItem(iconBox, "йоути", new ActionListener() {
+        MenuItem box = new MenuItem(iconBox, "йоутиа", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new BoxPanel();
+				panelBody.removeAll();
+				panelBody.add(new BoxPanel());
+				panelBody.repaint();
+	            panelBody.revalidate();
 				
 			}
         	
         });
-        MenuItem pallete = new MenuItem(iconPallete, "пакета", null);
+        
+        MenuItem pallete = new MenuItem(iconPallete, "пакетес", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelBody.removeAll();
+				panelBody.add(new PalletePanel());
+				panelBody.repaint();
+	            panelBody.revalidate();
+				
+			}
+        	
+        });
+        
+        
+        
         MenuItem browse = new MenuItem(productIcon,"пеяигцгсг пяозомтым",null);
         MenuItem menuStaff = new MenuItem(iconSetting, "яухлисеис", null, menuStaff1, menuStaff2);
         MenuItem menuSetting = new MenuItem(labelsIcon, "етийетес", null, piece, box, pallete);

@@ -1,52 +1,45 @@
 package form;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dialog.ModalityType;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
-import com.github.lgooddatepicker.tableeditors.DateTableEditor;
-import com.github.lgooddatepicker.tableeditors.DateTimeTableEditor;
-import com.toedter.calendar.JDateChooser;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.sql.Connection;
-import java.util.Date;
-import java.util.Locale;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class UserButtonPanel extends javax.swing.JPanel {
+import javax.swing.JFrame;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import com.github.lgooddatepicker.tableeditors.DateTableEditor;
+import com.toedter.calendar.JDateChooser;
+
+public class PalletePanel extends javax.swing.JPanel {
 	private String uname = "root";
 	private String pass = "Jo6c!pi7papaxen";
-	private String query = "select* from users";
+	private String query = "select* from palletetable";
 	private String url = "jdbc:mysql://localhost:3306/users";
 	private String data = "";
 	private Object[][] myObj;
@@ -59,10 +52,10 @@ public class UserButtonPanel extends javax.swing.JPanel {
 	private Integer count = 0;
 	private JTable table;
 	private JDateChooser chooser = new JDateChooser();
-	private static JDialog dialog;
+	
 	private boolean noRow = false;
 	private int indexes[];
-	private int counter = 0;
+	
 	 public void removeSelectedFromTable(JTable table) {
 
 	        DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -80,7 +73,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
-    public UserButtonPanel() {
+    public PalletePanel() {
         initComponents();
     }
 
@@ -128,7 +121,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
     	    table = new javax.swing.JTable(model);
         	table.setDefaultEditor(LocalDate.class, new DateTableEditor());
         	table.setDefaultRenderer(LocalDate.class, new DateTableEditor());
-        	TableColumn col = table.getColumnModel().getColumn(3);
+        	TableColumn col = table.getColumnModel().getColumn(2);
         	col.setCellEditor(table.getDefaultEditor(LocalDate.class));
         	col.setCellRenderer(table.getDefaultRenderer(LocalDate.class));
         	
@@ -160,7 +153,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
 
             jLabel1.setBackground(new java.awt.Color(155, 156, 237));
             jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-            jLabel1.setText("    Χρήστες");
+            jLabel1.setText("    ΠΑΛΕΤΕΣ");
             jLabel1.setOpaque(true);
             
             Box buttonBox = Box.createHorizontalBox();
@@ -197,7 +190,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING))
                               
-                .addComponent(buttonBox)
+                //.addComponent(buttonBox)
                 .addComponent(pane,10,600,700));
                                 
             layout.setVerticalGroup(
@@ -205,7 +198,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     //.addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE))
-                    .addComponent(buttonBox)
+                    //.addComponent(buttonBox)
                     .addGap(30,30,30)
                     .addComponent(pane,10,200,250));                 
                     
@@ -217,7 +210,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
     			@Override
     			public void actionPerformed(ActionEvent e) {
 						
-						  String deleteQuery = "delete from users";
+						  String deleteQuery = "delete from palletetable";
 						  try {
 						  statement.executeUpdate(deleteQuery);
 						  } catch (SQLException e1) {
@@ -240,7 +233,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
     				try {
 								
     					int j = Integer.parseInt(id);
-						String query1 = "insert into users(idUsers,UserName,Password,LastModified) values("+j+",'"+name+"','"+pass+"','"+date+"')";
+						String query1 = "insert into palletetable(idpalletetable,palletelable,lastModified) values("+j+",'"+name+"','"+pass+"','"+date+"')";
 						statement.executeUpdate(query1);
 						
 					} catch (SQLException e2) {
@@ -261,21 +254,17 @@ public class UserButtonPanel extends javax.swing.JPanel {
 
     				@Override
     				public void actionPerformed(ActionEvent e) {
-    					
-    					
-    					
+    				
     					if(table.getSelectedRows().length==0) {
-    						NoRowSelectedMessageGUI gui = new NoRowSelectedMessageGUI();
-    						
+    						NoRowSelectedMessageGUI gui = new NoRowSelectedMessageGUI();   						
     						
     					}
     					
     					else {
     						
-    						JFrame powerFrame=  new JFrame();
-    						JDialog dialog = new JDialog(powerFrame,"Διαγραφή χρήστη",ModalityType.APPLICATION_MODAL);
+    						JFrame powerFrame=  new JFrame("Διαγραφή Ετικέτας");
     						JPanel panel = new JPanel();
-    						JLabel message = new JLabel("Είστε βέβαιος για τη διαγραφή του χρήστη; ");
+    						JLabel message = new JLabel("Είστε βέβαιος για τη διαγραφή της ετικέτας τεμαχίου; ");
     						
     						JButton yesButton = new JButton("ΝΑΙ");
     						JButton noButton = new JButton("OXI");
@@ -331,35 +320,19 @@ public class UserButtonPanel extends javax.swing.JPanel {
     						
     						panel.add(labelbox);
     						panel.add(box);
-    						panel.setPreferredSize(new Dimension(400,200));
+    						panel.setPreferredSize(new Dimension(400,100));
     						
     						
-    						dialog.add(panel);
+    						powerFrame.add(panel);
     						
-    						//powerFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    						powerFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     				        powerFrame.pack();
-    				        //powerFrame.setLocationRelativeTo(null);
-    				        //powerFrame.setVisible(true);
-    				        //powerFrame.setResizable(false);
-    				       
-    				        
-    				        
-    				        dialog.pack();
-    				        dialog.setSize(400,130);
-    				        dialog.setLocationRelativeTo(null);
-    				        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    				        dialog.setResizable(true);
-    				        dialog.setVisible(true);
-
-    				        
-    				        
+    				        powerFrame.setLocationRelativeTo(null);
+    				        powerFrame.setVisible(true);
+    				        powerFrame.setResizable(false);
     					}
-    			
-    					
-    					}
-    					
-    			
-    		});
+    				 }
+    				});
             	
             	
             	insert.addActionListener(new ActionListener() {
@@ -412,23 +385,7 @@ public class UserButtonPanel extends javax.swing.JPanel {
     private javax.swing.JButton insert;
     private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane pane;
-    // End of variables declaration//GEN-END:variables
-
-	public boolean isYes() {
-		return valid;
-	}
-
-
-
-	public void setYes(boolean yes) {
-		this.valid = yes;
-	}
-
-
-
-	public JTable getTable() {
-		return table;
-	}
+    
+    
+    
 }
-
-
