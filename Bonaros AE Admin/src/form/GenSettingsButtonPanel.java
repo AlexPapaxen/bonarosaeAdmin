@@ -34,7 +34,7 @@ public class GenSettingsButtonPanel extends javax.swing.JPanel {
 	private String uname = "root";
 	private String pass = "Jo6c!pi7papaxen";
 	private String query = "select* from generalsettings";
-	private String url = "jdbc:mysql://localhost:3306/users";
+	private String url = "jdbc:mysql://localhost:3306/users?useTimezone=true&serverTimezone=UTC";
 	private String s = "";
 	
     /**
@@ -80,7 +80,7 @@ public class GenSettingsButtonPanel extends javax.swing.JPanel {
     	//ImageIcon saveIcon = new ImageIcon(getClass().getResource("C:\\Users\\dai18\\eclipse-workspace\\Bonaros AE Admin\\Form Icons\\save.png"));
     	//ImageIcon exitIcon = new ImageIcon(getClass().getResource("C:\\Users\\dai18\\eclipse-workspace\\Bonaros AE Admin\\Form Icons\\exit.png"));
         jLabel1 = new javax.swing.JLabel();
-        jname = new javax.swing.JLabel("Όνομα : ");
+        jname = new javax.swing.JLabel("ΞΞΞΞΞ‘ : ");
         nameField = new javax.swing.JTextField();
         nameField.setEditable(true);
         jname.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
@@ -144,12 +144,12 @@ public class GenSettingsButtonPanel extends javax.swing.JPanel {
        
         
         saveButton = new javax.swing.JButton();
-        saveButton.setText("ΑΠΟΘΗΚΕΥΣΗ");
+        saveButton.setText("Ξ‘Ξ ΞΞΞ—ΞΞ•Ξ¥Ξ£Ξ—");
         jTextField1 = new javax.swing.JTextField();
         jTextField1.setEditable(true);
         jLabel1.setBackground(new java.awt.Color(155, 156, 237));
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("    Γενικές Ρυθμίσεις");
+        jLabel1.setText("   Ξ“Ξ•ΞΞ™ΞΞ‘");
         jLabel1.setOpaque(true);
         Box buttonBox = Box.createHorizontalBox();
         buttonBox.add(Box.createRigidArea(new Dimension(30,30)));
@@ -284,6 +284,8 @@ public class GenSettingsButtonPanel extends javax.swing.JPanel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				new GenSaveSuccessGUI();
 				
 				
 			}

@@ -2,11 +2,13 @@ package form;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,23 +16,23 @@ import javax.swing.WindowConstants;
 
 public class SuccessSaveGUI extends JFrame {
 	
-	private JButton okButton = new JButton("ΕΝΤΑΞΕΙ");
-	private JFrame powerFrame=  new JFrame("Επιτυχής αποθήκευση");
+	private JButton okButton = new JButton("Ξ•ΞΞ¤Ξ‘ΞΞ•Ξ™");
+	private JFrame powerFrame=  new JFrame("Ξ‘Ξ ΞΞΞ—ΞΞ•Ξ¥Ξ£Ξ— Ξ‘Ξ›Ξ›Ξ‘Ξ“Ξ©Ξ");
 	private JPanel panel = new JPanel();
-	private JLabel message = new JLabel("Οι αλλαγές σας έχουν αποθηκευτεί ! ");
-	
+	private JLabel message = new JLabel("ΞΞ™ Ξ‘Ξ›Ξ›Ξ‘Ξ“Ξ•Ξ£ Ξ£Ξ‘Ξ£ Ξ‘Ξ ΞΞΞ—ΞΞ•Ξ¥Ξ¤Ξ—ΞΞ‘Ξ Ξ•Ξ Ξ™Ξ¤Ξ¥Ξ§Ξ©Ξ£ ! ");
+	private JDialog dialog = new JDialog(powerFrame,"Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ·",ModalityType.APPLICATION_MODAL);
 
 	public SuccessSaveGUI() {
 		
 		okButton.setPreferredSize(new Dimension(10,30));
 		okButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
 		
-		//Στοίχηση κουμπιών
+		//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 		okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 		
-		//Στοίχηση ετικέτας
+		//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 		message.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 
@@ -58,15 +60,16 @@ public class SuccessSaveGUI extends JFrame {
 		panel.add(labelbox);
 
 		panel.setPreferredSize(new Dimension(400,100));
+		dialog.add(panel);
+		powerFrame.pack();
 		
-		//ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("bonaros.jpg"));
-		powerFrame.add(panel);
-		//powerFrame.setIconImage(logo.getImage());
-		powerFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        powerFrame.pack();
-        powerFrame.setLocationRelativeTo(null);
-        powerFrame.setVisible(true);
-        powerFrame.setResizable(false);
+		dialog.pack();
+        dialog.setSize(400,130);
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.setResizable(true);
+        dialog.setVisible(true);
+		
         
 
 		

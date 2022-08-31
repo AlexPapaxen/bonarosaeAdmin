@@ -17,34 +17,34 @@ import javax.swing.WindowConstants;
 
 public class NoRowSelectedMessageGUI {
 	
-	private JFrame powerFrame=  new JFrame("Διαγραφή Χρήστη");
+	private JFrame powerFrame=  new JFrame("ΞΞ±ΞΌΞ―Ξ± ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ");
 	private JPanel panel = new JPanel();
-	private JButton okButton = new JButton("ΕΝΤΑΞΕΙ");
+	private JButton okButton = new JButton("Ξ•ΞΞ¤Ξ‘ΞΞ•Ξ™");
 	private boolean yes = false;
 
-	private JLabel message = new JLabel("Δεν έχετε επιλέξει καμία εγγραφή ");
+	private JLabel message = new JLabel("Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ Ξ­Ξ½Ξ±Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·");
 	
 
 	public NoRowSelectedMessageGUI() {
-		 JDialog dialog = new JDialog(powerFrame,"Δεν έχετε επιλέξει χρήστη",ModalityType.APPLICATION_MODAL);
+		 JDialog dialog = new JDialog(powerFrame,"ΞΞ±ΞΌΞ―Ξ± ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®",ModalityType.APPLICATION_MODAL);
 		okButton.setPreferredSize(new Dimension(10,30));
 		okButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
 		
-		//Στοίχηση κουμπιών
+		//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 		okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		
 	
-		//Στοίχηση ετικέτας
+		//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
 		message.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 
 		Box labelbox = Box.createVerticalBox();
 		
 		
-		labelbox.setPreferredSize(new Dimension(180,70));
+		labelbox.setPreferredSize(new Dimension(240,70));
 		labelbox.add(message);
-		labelbox.add(Box.createRigidArea(new Dimension(20,20)));
+		labelbox.add(Box.createRigidArea(new Dimension(10,20)));
 		labelbox.add(okButton);
 		
 		okButton.addActionListener(new ActionListener() {

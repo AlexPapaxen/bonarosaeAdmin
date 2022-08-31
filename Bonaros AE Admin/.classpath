@@ -9,17 +9,32 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.29.jar">
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeAdmin/Bonaros AE Admin/jcalendar-1.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/dai18/git/bonarosaeAdmin/Bonaros AE Admin/jcalendar-1.4.jar">
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeAdmin/Bonaros AE Admin/jtstand-desktop-1.2.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/dai18/Downloads/LGoodDatePicker-11.2.1.jar">
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeAdmin/Bonaros AE Admin/org-netbeans-api-annotations-common-RELEASE130.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeAdmin/Bonaros AE Admin/LGoodDatePicker-11.2.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeAdmin/Bonaros AE Admin/mysql-connector-java-8.0.15.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/user/git/bonarosaeProgramm/Bonaros AE/jxl-2.6.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

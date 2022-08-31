@@ -40,13 +40,13 @@ public class PiecePanel extends javax.swing.JPanel {
 	private String uname = "root";
 	private String pass = "Jo6c!pi7papaxen";
 	private String query = "select* from piecetable";
-	private String url = "jdbc:mysql://localhost:3306/users";
+	private String url = "jdbc:mysql://localhost:3306/users?useTimezone=true&serverTimezone=UTC";
 	private String data = "";
 	private Object[][] myObj;
 	private ArrayList<String> dataList = new ArrayList<>();
 	private ArrayList<JDateChooser> tableData = new ArrayList<>();
-	private JButton yesButton = new JButton("ΝΑΙ");
-	private JButton noButton = new JButton("ΟΧΙ");
+	private JButton yesButton = new JButton("οΏ½οΏ½οΏ½");
+	private JButton noButton = new JButton("οΏ½οΏ½οΏ½");
 	private int id = 0;
 	private boolean valid = false;
 	private Integer count = 0;
@@ -143,17 +143,17 @@ public class PiecePanel extends javax.swing.JPanel {
             jLabel1 = new javax.swing.JLabel();
             
             save = new javax.swing.JButton();
-            save.setText("ΑΠΟΘΗΚΕΥΣΗ");
+            save.setText("Ξ‘Ξ ΞΞΞ—ΞΞ•Ξ¥Ξ£Ξ—");
             deleteButton = new javax.swing.JButton();
-            deleteButton.setText("ΔΙΑΓΡΑΦΗ");
+            deleteButton.setText("Ξ”Ξ™Ξ‘Ξ“Ξ΅Ξ‘Ξ¦Ξ—");
             insert = new javax.swing.JButton();
-            insert.setText("ΕΙΣΑΓΩΓΗ");
+            insert.setText("Ξ•Ξ™Ξ£Ξ‘Ξ“Ξ©Ξ“Ξ—");
                    
             jTextField1 = new javax.swing.JTextField();
 
             jLabel1.setBackground(new java.awt.Color(155, 156, 237));
             jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-            jLabel1.setText("    ΤΕΜΑΧΙΑ");
+            jLabel1.setText("    Ξ¤Ξ•ΞΞ‘Ξ§Ξ™Ξ‘");
             jLabel1.setOpaque(true);
             
             Box buttonBox = Box.createHorizontalBox();
@@ -262,22 +262,22 @@ public class PiecePanel extends javax.swing.JPanel {
     					
     					else {
     						
-    						JFrame powerFrame=  new JFrame("Διαγραφή Ετικέτας");
+    						JFrame powerFrame=  new JFrame("οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½");
     						JPanel panel = new JPanel();
-    						JLabel message = new JLabel("Είστε βέβαιος για τη διαγραφή της ετικέτας τεμαχίου; ");
+    						JLabel message = new JLabel("οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½; ");
     						
-    						JButton yesButton = new JButton("ΝΑΙ");
+    						JButton yesButton = new JButton("οΏ½οΏ½οΏ½");
     						JButton noButton = new JButton("OXI");
     						yesButton.setPreferredSize(new Dimension(100,10));
     						yesButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
     						noButton.setPreferredSize(new Dimension(100,10));
     						noButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
-    						//Στοίχηση κουμπιών
+    						//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
     						yesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     						noButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     						
     						
-    						//Στοίχηση ετικέτας
+    						//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
     						message.setAlignmentX(Component.CENTER_ALIGNMENT);
     						
     						Box box = Box.createHorizontalBox();

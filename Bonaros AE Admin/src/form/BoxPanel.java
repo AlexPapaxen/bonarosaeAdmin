@@ -1,6 +1,6 @@
 package form;
 
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -10,26 +10,22 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -40,21 +36,10 @@ public class BoxPanel extends javax.swing.JPanel {
 	private String uname = "root";
 	private String pass = "Jo6c!pi7papaxen";
 	private String query = "select* from boxtable";
-	private String url = "jdbc:mysql://localhost:3306/users";
-	private String data = "";
-	private Object[][] myObj;
-	private ArrayList<String> dataList = new ArrayList<>();
-	private ArrayList<JDateChooser> tableData = new ArrayList<>();
-	private JButton yesButton = new JButton("ΝΑΙ");
-	private JButton noButton = new JButton("ΟΧΙ");
+	private String url = "jdbc:mysql://localhost:3306/users?useTimezone=true&serverTimezone=UTC";
 	private int id = 0;
-	private boolean valid = false;
-	private Integer count = 0;
 	private JTable table;
 	private JDateChooser chooser = new JDateChooser();
-	
-	private boolean noRow = false;
-	private int indexes[];
 	
 	 public void removeSelectedFromTable(JTable table) {
 
@@ -143,17 +128,17 @@ public class BoxPanel extends javax.swing.JPanel {
             jLabel1 = new javax.swing.JLabel();
             
             save = new javax.swing.JButton();
-            save.setText("ΑΠΟΘΗΚΕΥΣΗ");
+            save.setText("Ξ‘Ξ ΞΞΞ—ΞΞ•Ξ¥Ξ£Ξ—");
             deleteButton = new javax.swing.JButton();
-            deleteButton.setText("ΔΙΑΓΡΑΦΗ");
+            deleteButton.setText("Ξ”Ξ™Ξ‘Ξ“Ξ΅Ξ‘Ξ¦Ξ—");
             insert = new javax.swing.JButton();
-            insert.setText("ΕΙΣΑΓΩΓΗ");
+            insert.setText("Ξ•Ξ™Ξ£Ξ‘Ξ“Ξ©Ξ“Ξ—");
                    
             jTextField1 = new javax.swing.JTextField();
 
             jLabel1.setBackground(new java.awt.Color(155, 156, 237));
             jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-            jLabel1.setText("    ΚΟΥΤΙΑ");
+            jLabel1.setText("    ΞΞΞ¥Ξ¤Ξ™Ξ‘");
             jLabel1.setOpaque(true);
             
             Box buttonBox = Box.createHorizontalBox();
@@ -262,22 +247,22 @@ public class BoxPanel extends javax.swing.JPanel {
     					
     					else {
     						
-    						JFrame powerFrame=  new JFrame("Διαγραφή Ετικέτας");
+    						JFrame powerFrame=  new JFrame("Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ§ΟΞ®ΟƒΟ„Ξ·");
     						JPanel panel = new JPanel();
-    						JLabel message = new JLabel("Είστε βέβαιος για τη διαγραφή της ετικέτας τεμαχίου; ");
+    						JLabel message = new JLabel("Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞΌΟΞ½ΞΉΞΌΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ο€ΟΞΏΟΟΞ½Ο„ΞΏΟ‚; ");
     						
-    						JButton yesButton = new JButton("ΝΑΙ");
+    						JButton yesButton = new JButton("ΞΞ‘Ξ™");
     						JButton noButton = new JButton("OXI");
     						yesButton.setPreferredSize(new Dimension(100,10));
     						yesButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
     						noButton.setPreferredSize(new Dimension(100,10));
     						noButton.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
-    						//Στοίχηση κουμπιών
+    						//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
     						yesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     						noButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     						
     						
-    						//Στοίχηση ετικέτας
+    						//οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½
     						message.setAlignmentX(Component.CENTER_ALIGNMENT);
     						
     						Box box = Box.createHorizontalBox();

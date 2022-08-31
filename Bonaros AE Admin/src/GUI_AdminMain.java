@@ -1,7 +1,10 @@
 
 import form.PiecePanel;
+import form.ProductPanel;
 import form.BoxPanel;
+import form.ExportGUI;
 import form.GenSettingsButtonPanel;
+import form.InProcessGUI;
 import form.PalletePanel;
 import form.UserButtonPanel;
 
@@ -22,12 +25,14 @@ public class GUI_AdminMain extends javax.swing.JFrame {
 	private String uname = "root";
 	private String pass = "Jo6c!pi7papaxen";
 	private String query = "select* from generalsettings";
-	private String url = "jdbc:mysql://localhost:3306/users";
+	private String url = "jdbc:mysql://localhost:3306/users?useTimezone=true&serverTimezone=UTC";
 	private String s = "";
     /**
      * Creates new form Main
      */
     public GUI_AdminMain() {
+    	
+    
     	try {
     		Class.forName("com.mysql.cj.jdbc.Driver");
     	}
@@ -78,7 +83,7 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
         
         //  create submenu staff
-        MenuItem menuStaff1 = new MenuItem(iconSubMenu, "цемийа", new ActionListener() {
+        MenuItem menuStaff1 = new MenuItem(iconSubMenu, "н⌠н∙н²н≥н н▒", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
             	panelBody.removeAll();
@@ -87,7 +92,7 @@ public class GUI_AdminMain extends javax.swing.JFrame {
                 panelBody.revalidate();
             }
         });
-        MenuItem menuStaff2 = new MenuItem(iconSubMenu, "вягстес", new ActionListener() {
+        MenuItem menuStaff2 = new MenuItem(iconSubMenu, "н╖н║н≈нён╓н∙нё", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -102,12 +107,34 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
         //  create submenu setting message
 
-        MenuItem message1 = new MenuItem(exportIcon, "енацыцг", null);
-        MenuItem message2 = new MenuItem(processIcon, "се епенеяцасиа", null);
+        MenuItem message1 = new MenuItem(exportIcon, "н∙н·н▒н⌠н╘н⌠н≈", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelBody.removeAll();				
+				panelBody.add(new ExportGUI());
+				panelBody.repaint();
+				panelBody.revalidate();
+				
+			}
+        	
+        });
+        MenuItem message2 = new MenuItem(processIcon, "нён∙ н∙н═н∙н·н∙н║н⌠н▒нён≥н▒", new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelBody.removeAll();				
+				panelBody.add(new InProcessGUI());
+				panelBody.repaint();
+				panelBody.revalidate();
+				
+			}
+        	
+        });
         
 
         //  create submenu setting 
-        MenuItem piece = new MenuItem(iconPiece, "телавиа", new ActionListener() {
+        MenuItem piece = new MenuItem(iconPiece, "н╓н∙н°н▒н╖н≥н▒", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +146,7 @@ public class GUI_AdminMain extends javax.swing.JFrame {
 			}
         	
         });
-        MenuItem box = new MenuItem(iconBox, "йоутиа", new ActionListener() {
+        MenuItem box = new MenuItem(iconBox, "н н÷н╔н╓н≥н▒", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -132,7 +159,7 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         	
         });
         
-        MenuItem pallete = new MenuItem(iconPallete, "пакетес", new ActionListener() {
+        MenuItem pallete = new MenuItem(iconPallete, "н═н▒н⌡н∙н╓н∙нё", new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -147,11 +174,24 @@ public class GUI_AdminMain extends javax.swing.JFrame {
         
         
         
-        MenuItem browse = new MenuItem(productIcon,"пеяигцгсг пяозомтым",null);
-        MenuItem menuStaff = new MenuItem(iconSetting, "яухлисеис", null, menuStaff1, menuStaff2);
-        MenuItem menuSetting = new MenuItem(labelsIcon, "етийетес", null, piece, box, pallete);
-        MenuItem menuDatabase = new MenuItem(iconDatabase, "дедолема", null,message1,message2);
-        MenuItem menuProducts = new MenuItem(browseIcon,"пяозомта",null,browse);
+        MenuItem browse = new MenuItem(productIcon,"н═н∙н║н≥н≈н⌠н≈нён≈ н═н║н÷н╙н÷н²н╓н╘н²",new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				panelBody.removeAll();
+				panelBody.add(new ProductPanel());
+				panelBody.repaint();
+				panelBody.revalidate();
+				
+			}
+        	
+        });
+        
+        
+        MenuItem menuStaff = new MenuItem(iconSetting, "н║н╔н≤н°н≥нён∙н≥нё", null, menuStaff1, menuStaff2);
+        MenuItem menuSetting = new MenuItem(labelsIcon, "н∙н╓н≥н н∙н╓н∙нё", null, piece, box, pallete);
+        MenuItem menuDatabase = new MenuItem(iconDatabase, "н■н∙н■н÷н°н∙н²н▒", null,message1,message2);
+        MenuItem menuProducts = new MenuItem(browseIcon,"н═н║н÷н╙н▄н²н╓н▒",null,browse);    
         addMenu(menuStaff, menuSetting, menuDatabase,menuProducts);
     }
 
